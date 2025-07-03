@@ -2,6 +2,15 @@
 
 This project showcases my dbt and Snowflake skills. I started from the dataset 
 
+Work in progress:
+[ ] Build INT_ and Marts
+[ ] profiles.yml (add to )
+[ ] Documentation
+[ ] Implement advanced deployment
+[ ] Implement dbt bouncer (fail-fast)
+[ ] Implement dbt linter (fluff?)
+
+
 # Sources: 
 Downloaded from Kaggle
 - [Top 100 Chess Players Historical](https://www.kaggle.com/datasets/odartey/top-chess-players)
@@ -11,4 +20,5 @@ Downloaded from Kaggle
 
 
 ## Procedure
-1. Creating the raw table from a JSON file downloaded from Kaggle 
+1. Creating the raw tables from a JSON file downloaded from Kaggle 
+2. Parsed raw json into STG_ models
