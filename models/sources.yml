@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: RAW 
+    database: CHESS_ANALYTICS
+
+tables:
+  - name: CANDIDATE_CHESS_TOURNAMENT_DATA_1950_2022
+    description: "FIDE Candidate Chess Tournaments from 1950 to 2022, including participants, results, and match metadata."
+
+  - name: TOP_100_CHESS_PLAYERS_HISTORICAL
+    description: "Historical ranking data for the top 100 chess players"
+
+  - name: WORLD_CHESS_CHAMPIONSHIP_MATCHES_1866_2021
+    description: "Match-level data from World Chess Championship games between 1866 and 2021"
+
+  - name: WORLD_CHESS_GRANDMASTERS_DATA
+    description: "Comprehensive data on grandmasters until 2020"
