@@ -5,6 +5,7 @@ This project showcases my dbt and Snowflake skills. I started from the dataset
 Work in progress:
 [ ] Build INT_ and Marts
 [ ] profiles.yml (add to )
+[ ] build jobs (dbt compile).
 [ ] Documentation
 [ ] Implement advanced deployment
 [ ] Implement dbt bouncer (fail-fast)
