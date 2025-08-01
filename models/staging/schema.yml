@@ -1,0 +1,122 @@
+version: 2
+
+models:
+  - name: stg_candidate_chess_tournament_data_1950_2022
+    description: "Parsed game data from FIDE Candidates Tournaments between 1950 and 2022."
+    columns:
+      - name: black_player
+        description: "Name of the player with the black pieces."
+      - name: white_player
+        description: "Name of the player with the white pieces."
+      - name: game_date
+        description: "Date when the game was played (YYYY-MM-DD)."
+      - name: eco_code
+        description: "ECO opening code used in the game."
+      - name: event
+        description: "Short event name (e.g. 'Budapest Candidates')."
+      - name: event_with_year
+        description: "Full event name including year."
+      - name: full_opening_name
+        description: "Full name of the chess opening used."
+      - name: short_opening_name
+        description: "Short name of the opening family."
+      - name: opening_family
+        description: "Broad classification of the opening."
+      - name: moves_json_string
+        description: "Move sequence represented as a stringified JSON list."
+      - name: result
+        description: "Outcome of the game (e.g., 'Black Wins')."
+      - name: round
+        description: "Round number within the tournament."
+      - name: site
+        description: "Location of the event."
+      - name: year
+        description: "Year when the game was played."
+
+  - name: stg_top_100_chess_players_historical
+    description: "Historical top 100 player rankings including Elo ratings and player metadata."
+    columns:
+      - name: player_name
+        description: "Full name of the player (Last, First)."
+      - name: country_code
+        description: "Three-letter country code (FIDE federation)."
+      - name: birth_year
+        description: "Year the player was born."
+      - name: games_played
+        description: "Number of games played in the rating period."
+      - name: world_rank
+        description: "Global rank position during the rating period."
+      - name: ranking_date
+        description: "Date when the ranking snapshot was recorded."
+      - name: elo_rating
+        description: "FIDE Elo rating at that ranking date."
+      - name: fide_title
+        description: "FIDE title code (e.g., 'g' for Grandmaster)."
+
+  - name: stg_world_chess_championship_matches_1866_2021
+    description: "Structured data from World Chess Championship matches between 1866 and 2021."
+    columns:
+      - name: game_id
+        description: "Unique identifier for each game (UUID)."
+      - name: event
+        description: "Event name (e.g., WCh 2021)."
+      - name: round
+        description: "Round number in the championship."
+      - name: game_order
+        description: "Game number within the match series."
+      - name: site
+        description: "Location of the event."
+      - name: date_played
+        description: "Date the game was played (parsed from PGN)."
+      - name: date_created
+        description: "Timestamp of when the game record was created."
+      - name: white_player
+        description: "Name of the player with white pieces."
+      - name: white_elo
+        description: "Elo rating of the white player."
+      - name: white_title
+        description: "FIDE title of the white player."
+      - name: black_player
+        description: "Name of the player with black pieces."
+      - name: black_elo
+        description: "Elo rating of the black player."
+      - name: black_title
+        description: "FIDE title of the black player."
+      - name: result
+        description: "Game result (e.g., '1/2-1/2')."
+      - name: winner
+        description: "Declared winner ('white', 'black', or 'draw')."
+      - name: loser
+        description: "Declared loser (or 'draw')."
+      - name: winner_elo
+        description: "Elo rating of the winner (null on draws)."
+      - name: loser_elo
+        description: "Elo rating of the loser (null on draws)."
+      - name: elo_diff
+        description: "Elo rating difference between winner and loser."
+      - name: eco_code
+        description: "ECO opening code used in the game."
+      - name: pgn_file_name
+        description: "Original PGN source file for the game."
+
+  - name: stg_world_chess_grandmasters
+    description: "Biographical data for officially titled grandmasters including FIDE ID and federation info."
+    columns:
+      - name: fide_id
+        description: "FIDE ID number for the player."
+      - name: full_name
+        description: "Full name of the grandmaster."
+      - name: gender
+        description: "Sex of the player (M/F)."
+      - name: birth_date
+        description: "Date of birth."
+      - name: death_date
+        description: "Date of death (if applicable)."
+      - name: birthplace
+        description: "City or region of birth."
+      - name: federation
+        description: "National chess federation the player was registered with."
+      - name: title_year
+        description: "Year the player earned the grandmaster title."
+      - name: notes
+        description: "Additional notes or remarks about the player."
