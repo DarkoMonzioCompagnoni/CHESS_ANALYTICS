@@ -1,56 +1,50 @@
-{{ config(materialized='table') }}
+{{ config(
+    materialized = 'table'
+) }}
 
-with champs as (
-  select distinct
-    event                         as event_name,
-    event                         as event_key,
-    site,
-    extract(year from date_played) as year
-  from {{ ref('int_world_chess_championship_matches') }}
+with candidate_events as (
+  select
+    stg.event,
+    stg.site,
+    stg.country_code,
+    stg.year,
+    'candidates' as source
+  from {{ ref('int_candidate_chess_tournament_data_1950_2022') }} stg
 ),
 
-cand as (
-  select distinct
-    event                   as event_name,
-    event_with_year         as event_key,
-    site,
-    year
-  from {{ ref('int_candidate_chess_tournament_data_1950_2022') }}
+championship_events as (
+  select
+    stg.event,
+    stg.site,
+    stg.country_code,
+    extract(year from stg.date_played) as year,
+    'championships' as source
+  from {{ ref('int_world_chess_championship_matches_1866_2021') }} stg
 ),
 
 combined as (
-  select
-    coalesce(champs.event_name, cand.event_name) as event_name,
-    coalesce(champs.event_key,  cand.event_key)  as event_key,
-    coalesce(champs.site,       cand.site)       as site,
-    coalesce(champs.year,       cand.year)       as year
-  from champs
-  full outer join cand using (event_name)
+  select * from candidate_events
+  union all
+  select * from championship_events
 ),
 
-exploded as (
+deduplicated as (
   select
     *,
-    -- extract the last three characters as country_code
-    right(site, 3) as country_code,
-
-    -- extract the city by removing trailing ' (XXX)' or last word
-    case
-      when site rlike '\\s*\\([^)]*\\)$' then
-        regexp_replace(site, '\\s*\\([^)]*\\)$', '')
-      else
-        regexp_replace(site, '\\s+\\S+$', '')
-    end as city
-
+    md5(lower(event) || '-' || coalesce(cast(year as string), '') || '-' || lower(site)) as event_id,
+    row_number() over (
+      partition by md5(lower(event) || '-' || coalesce(cast(year as string), '') || '-' || lower(site))
+      order by source desc
+    ) as row_num
   from combined
 )
 
 select
-  event_name,
-  event_key,
+  event_id,
+  event,
+  year,
   site,
-  city,
   country_code,
-  year
-from exploded
-order by event_name
+  source
+from deduplicated
+where row_num = 1

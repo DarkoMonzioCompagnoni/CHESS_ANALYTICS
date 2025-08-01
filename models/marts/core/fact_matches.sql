@@ -8,7 +8,7 @@ select
   m.result,
   m.eco_code              as opening_key,
   m.elo_diff
-from {{ ref('int_world_chess_championship_matches') }} as m
+from {{ ref('int_world_chess_championship_matches_1866_2021') }} as m
 
 left join {{ ref('dim_player') }} as wp
   on m.white_first_name = wp.first_name

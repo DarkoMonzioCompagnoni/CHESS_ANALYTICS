@@ -4,7 +4,7 @@ with bounds as (
   select
     min(date_played) as start_date,
     max(date_played) as end_date
-  from {{ ref('int_world_chess_championship_matches') }}
+  from {{ ref('int_world_chess_championship_matches_1866_2021') }}
 ),
 
 -- generate a lot of integers at compile time
