@@ -24,7 +24,6 @@ date_spine as (
 )
 
 select
-  date                              as date_key,
   date                              as full_date,
   extract(year  from date)          as year,
   extract(month from date)          as month,

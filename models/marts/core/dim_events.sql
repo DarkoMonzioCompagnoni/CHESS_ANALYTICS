@@ -31,15 +31,10 @@ combined as (
 exploded as (
   select
     *,
-    -- extract the raw country text
-    case
-      when site rlike '\\([^)]*\\)$' then
-        regexp_substr(site, '\\(([^)]*)\\)', 1, 1, 'e', 1)
-      else
-        regexp_substr(site, '\\S+$')
-    end as raw_country_name,
+    -- extract the last three characters as country_code
+    right(site, 3) as country_code,
 
-    -- extract the city as before
+    -- extract the city by removing trailing ' (XXX)' or last word
     case
       when site rlike '\\s*\\([^)]*\\)$' then
         regexp_replace(site, '\\s*\\([^)]*\\)$', '')
@@ -55,12 +50,7 @@ select
   event_key,
   site,
   city,
-  coalesce(cc.country_code, 'UNK') as country_code,
+  country_code,
   year
-
-from exploded e
-
-left join {{ ref('country_codes') }} cc
-  on lower(e.raw_country_name) = lower(cc.country_name)
-
+from exploded
 order by event_name

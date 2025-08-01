@@ -9,8 +9,7 @@ with stg as (
 
 select
   -- all staging columns
-  stg.*,
-
+  stg.player_name,
   -- split player_name
   case
     when stg.player_name like '%,%' then
@@ -20,7 +19,6 @@ select
     else
       stg.player_name                               -- fallback
   end as first_name,
-
   case
     when stg.player_name like '%,%' then
       trim(split_part(stg.player_name, ',', 1))      -- Before comma
@@ -28,6 +26,12 @@ select
       split_part(stg.player_name, ' ', -1)           -- Last token
     else
       null                                           -- fallback
-  end as last_name
-
+  end as last_name,
+  stg.country_code,
+  stg.birth_year,
+  stg.games_played,
+  stg.world_rank,
+  stg.ranking_date,
+  stg.elo_rating,
+  stg.fide_title
 from stg
