@@ -47,4 +47,4 @@ select
   country_code,
   source
 from deduplicated
-where row_num = 1
+where row_num = 1 and LEN(country_code) > 3
