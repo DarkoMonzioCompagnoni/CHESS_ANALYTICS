@@ -3,8 +3,8 @@
 select
   m.game_id               as match_id,
   m.date_played           as date_key,
-  wp.player_key           as white_player_key,
-  bp.player_key           as black_player_key,
+  wp.player_id           as white_player_id,
+  bp.player_id           as black_player_id,
   m.result,
   m.eco_code              as opening_key,
   m.elo_diff
